@@ -34,16 +34,17 @@ jobs:
       run: |
         cd my-app
         npm run build 
-
-     - name: Run Component Tests
+    - name: Run Component Tests
       run: |
         cd my-app
-        npm run test
+        # Run tests in CI mode (disable watch mode)
+        npm test -- --watchAll=false
 
- - name: Start the app
+    - name: Start the app
       run: |
         cd my-app
+        # Start dev server in the background and wait for it to be available
         npm start &
-        npx wait-on --timeout 60000
+        npx wait-on http://localhost:3000 --timeout 60000
        
   
